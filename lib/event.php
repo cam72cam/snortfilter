@@ -26,4 +26,13 @@ class event {
 		$result = db::query("SELECT * FROM event WHERE cid=%d AND sid=%d", $cid, $sid);
 		return $result->fetch_object('event');
 	}
+
+	public static function query($query) {
+		$result = db::query($query->build());
+		$events = new ArrayObject();
+		for($event = $result->fetch_object('event'); $event != false; $event = $result->fetch_object('event')) {
+			$events->append($event);
+		}
+		return $events;
+	}
 }

@@ -3,7 +3,7 @@
 include_once "packet.php";
 include_once "signature.php";
 include_once "event.php";
-
+include_once "query.php";
 
 db::$instance = new db();
 

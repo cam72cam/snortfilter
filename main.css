@@ -1,0 +1,8 @@
+.event_table td {
+	padding-right: 20px;
+}
+.event_table th {
+	background-color: #ccc;
+	text-align: left;
+	padding-left: 10px;
+}
