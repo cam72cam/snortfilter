@@ -16,8 +16,8 @@ function page_header($page, $title) {
 	<body>
 	<table>
 		<tr>
-			<td>Home</td>
-			<td>Search</td>
+			<td><a href="index.php">Home</a></td>
+			<td><a href="search.php">Search</a></td>
 		</tr>
 	</table>
 	
