@@ -7,6 +7,16 @@ class IPPROTO {
 	const EIGRP=88;
 }
 
+function proto2str($id) {
+	switch ($id) {
+		case IPPROTO::ICMP  : return "ICMP";
+		case IPPROTO::TCP   : return "TCP";
+		case IPPROTO::UDP   : return "UDP";
+		case IPPROTO::EIGRP : return "EIGRP";
+	}
+	return "Unknown: $id";
+}
+
 class packet {
 	private $cid;
 	private $sid;

@@ -13,13 +13,15 @@ Welcome to our page, here is some info about us! <br>
 Latest events: 
 <?
 
-$query = new query();
-$query->num_limit = 20;
-$query->orderby = ORDERBY::IP_SRC_ASC;
+#$query = new query();
+#$query->num_limit = 20;
+#$query->orderby = ORDERBY::IP_SRC_ASC;
 
-$events = event::query($query);
+#$events = event::query($query);
 
-event_table($events);
+#event_table($events);
+
+test_table();
 
 
 page_footer();

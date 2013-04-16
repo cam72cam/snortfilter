@@ -20,10 +20,25 @@ class query {
 	public $orderby;
 	public $start_limit;
 	public $num_limit;
+	public $select;
 
-	function build() {
-		$query = "SELECT event.* FROM event,signature,iphdr WHERE (event.sid, event.cid, event.signature) = (iphdr.sid, iphdr.cid, signature.sig_id) ";
-		
+	public function __construct(){
+		$this->select = "event.*";
+	}
+
+	public function build_count() {
+		$query = "SELECT count(*) from event ";
+		$query.= $this->parts();
+		return $query;
+	}
+
+	public function build() {
+		$query = "SELECT $this->select FROM event JOIN iphdr ON event.sid = iphdr.sid AND event.cid = iphdr.cid JOIN signature ON event.signature = signature.sig_id ";
+		$query.= $this->parts();
+		return $query;
+	}
+	private function parts() {
+		$query = "";
 		if(isset($this->ip_src)) {
 			$query .= sprintf(" AND ip.src='%d'", ip2long($this->ip_src));
 		}
