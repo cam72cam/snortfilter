@@ -17,7 +17,7 @@ function page_header($page, $header) {
 		<link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-		<script type="text/javascript" src="http://www.datatables.net/download/build/jquery.dataTables.js"></script>
+		<script type="text/javascript" src="jquery/jquery.dataTables.js"></script>
 	</head>
 	<body>
 		<?php if($header) { ?>
