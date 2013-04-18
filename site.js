@@ -14,6 +14,8 @@ $(document).ready(function () {
 			effect: "blind",
 			duration: 100
 		},
+		width: '80%',
+		height: 500,
 	});
 });
 
