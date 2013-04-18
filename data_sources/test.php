@@ -1,7 +1,7 @@
 <?php
 	include_once "../lib/db.php";
 	
-	$aColumns = array( 'sig_name', 'timestamp', 'ip_src', 'ip_proto');
+	$aColumns = array( 'event.sid', 'event.cid', 'sig_name', 'timestamp', 'ip_src', 'ip_proto');
 	
 	db::connect();
 	
@@ -31,9 +31,11 @@
 	if(isset($_GET['iDisplayStart']) && $_GET['iDisplayLength'] != '-1' ) {
 		$query->start_limit = intval( $_GET['iDisplayStart'] );
 		$query->num_limit = intval( $_GET['iDisplayLength'] );
+	} else {
+		$query->num_limit=10;
 	}
 
-	$query->select  = sprintf(" `%s`", str_replace(" , ", " ", implode("`, `", $aColumns)));
+	$query->select  = sprintf(" %s", str_replace(" , ", " ", implode(", ", $aColumns)));
 	$rResult = db::query($query->build());
 	$num_results = max($rResult->num_rows, $_GET['iDisplayLength']);
 
@@ -49,7 +51,7 @@
 		$row = array();
 		for ( $i=0 ; $i<count($aColumns) ; $i++ )
 		{
-			$data = $aRow[ $aColumns[$i] ];
+			$data = $aRow[$i];
 			if ( $aColumns[$i] == "ip_src" ) 
 				$row[] = long2ip($data);
 			else if ( $aColumns[$i] == "ip_proto" )

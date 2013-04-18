@@ -41,7 +41,7 @@ class packet {
 	public function get_tcp() {
 		if($this->get_ip()->ip_proto == IPPROTO::TCP) {
 			if(!isset($this->tcp_header)) {
-				$this->tcp_header = tcp_header::get($this->cid,$this->id);
+				$this->tcp_header = tcp_header::get($this->cid,$this->sid);
 			}
 			return $this->tcp_header;
 		}

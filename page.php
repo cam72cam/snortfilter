@@ -18,6 +18,7 @@ function page_header($page, $header) {
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 		<script type="text/javascript" src="jquery/jquery.dataTables.js"></script>
+		<script type="text/javascript" src="site.js"></script>
 	</head>
 	<body>
 		<?php if($header) { ?>

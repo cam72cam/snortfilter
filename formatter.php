@@ -1,51 +1,13 @@
 <?php
 
-
-function event_table($events) {
-	static $table_id = 0;
-	$counter = 1;
-	?>
-	<table id="event_table_<?php echo $table_id?>" style="width:100%;" cellpadding="0" cellspacing="0" border="0">
-		<thead>
-		<tr>
-			<th></th>
-			<th>Signature</th>
-			<th>Timestamp</th>
-			<th>Source IP</th>
-		</tr>
-		</thead>
-		<?php
-		foreach($events as &$event) {
-			$ip = $event->get_packet()->get_ip();
-			?>
-		<tr>
-			<td><?php echo $counter; ?></td>
-			<td><?php echo $event->get_signature()->sig_name; ?></td>
-			<td><?php echo $event->timestamp; ?></td>
-			<td><?php echo $ip->ip_src; ?></td>
-			
-		</tr>
-			<?php
-			$counter++;
-		}
-		
-		?>
-	</table>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#event_table_<?php echo $table_id?>").dataTable({ bJQueryUI : true});
-		});
-	</script>
-	<?php	
-	$table_id++;
-}
-
 function test_table() {
 	static $table_id = 0;
 	?>
 	<table id="test_table_<?php echo $table_id?>" style="width:100%;" cellpadding="0" cellspacing="0" border="0">
 		<thead>
 		<tr>
+			<th>SID</th>
+			<th>CID</th>
 			<th>Signature</th>
 			<th>Timestamp</th>
 			<th>Source IP</th>
@@ -54,8 +16,29 @@ function test_table() {
 		</thead>
 	</table>
 	<script type="text/javascript">
+		var table;
 		$(document).ready(function() {
-			$("#test_table_<?php echo $table_id?>").dataTable({ bJQueryUI : true, bProcessing: true, bServerSide: true, sAjaxSource: 'data_sources/test.php'});
+
+			function row_refresh() {
+				var nodes = table.fnGetNodes();
+				var data = table.fnGetData();
+				for(var i in data) {
+					nodes[i].data = data[i];
+					$(nodes[i]).click(function () 
+					{
+						show_dialog('inspector.php?sid=' + this.data[0] + '&cid=' + this.data[1]);
+					});
+				}
+			}
+			var id = "#test_table_<?php echo $table_id?>";
+			table = $(id).dataTable({ 
+				bJQueryUI : true, 
+				bProcessing: true,
+				bServerSide: true,
+				sAjaxSource: 'data_sources/test.php',
+				aoColumns: [ { "bVisible": false }, { "bVisible": false }, null, null,null,null ],
+				fnDrawCallback: row_refresh,
+			});
 		});
 	</script>
 	<?php	
