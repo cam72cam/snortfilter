@@ -46,13 +46,31 @@ class query {
 	private function parts($order) {
 		$query = " WHERE true"; // EMPTY WHERE
 		if(isset($this->ip_src)) {
-			$query .= sprintf(" AND src='%d'", ip2long($this->ip_src));
+			$query .= sprintf(" AND ip_src='%d'", ip2long($this->ip_src));
 		}
 		if(isset($this->proto)) {
 			$query .= sprintf(" AND ip_proto='%d'", $this->proto);
 		}
+		if(isset($this->start)) {
+			$query .= sprintf(" AND timestamp>='%s'", $this->start);
+		}
+		if(isset($this->end)) {
+			$query .= sprintf(" AND timestamp<='%s'", $this->end);
+		}
 		if(isset($this->signature)) {
-			$query .= " AND `sig_name` LIKE '%". $this->signature ."%'";
+			switch($this->sig_opt) {
+			case "contains":
+				$query .= " AND `sig_name` LIKE '%". $this->signature ."%'";
+				break;
+			case "begins":
+				$query .= " AND `sig_name` LIKE '". $this->signature ."%'";
+				break;
+			case "ends":
+				$query .= " AND `sig_name` LIKE '%". $this->signature ."'";
+				break;
+			default:
+				$query .= " AND `sig_name` LIKE '". $this->signature ."'";
+			}
 		}
 		
 		if(count($this->orderby) > 0 && $order) {

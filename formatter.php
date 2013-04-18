@@ -1,7 +1,16 @@
 <?php
 
-function test_table() {
+function event_table($params) {
 	static $table_id = 0;
+	
+	$pre = "?";
+	$args = "";
+	foreach($params as $key => $val) {
+		$args.=$pre.$key."=".$val;
+		$pre = "&";
+	}
+	echo $args;
+	
 	?>
 	<table id="test_table_<?php echo $table_id?>" style="width:100%;" cellpadding="0" cellspacing="0" border="0">
 		<thead>
@@ -24,7 +33,7 @@ function test_table() {
 				var data = table.fnGetData();
 				for(var i in data) {
 					nodes[i].data = data[i];
-					$(nodes[i]).click(function () 
+					$(nodes[i]).dblclick(function () 
 					{
 						show_dialog('inspector.php?sid=' + this.data[0] + '&cid=' + this.data[1]);
 					});
@@ -35,7 +44,7 @@ function test_table() {
 				bJQueryUI : true, 
 				bProcessing: true,
 				bServerSide: true,
-				sAjaxSource: 'data_sources/test.php',
+				sAjaxSource: 'data_sources/event.php<?php echo $args; ?>',
 				aoColumns: [ { "bVisible": false }, { "bVisible": false }, null, null,null,null ],
 				fnDrawCallback: row_refresh,
 			});

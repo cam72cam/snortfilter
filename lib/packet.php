@@ -17,6 +17,15 @@ function proto2str($id) {
 	return "Unknown: $id";
 }
 
+function str2proto($id) {
+	switch ($id) {
+		case "ICMP": return IPPROTO::ICMP;
+		case "TCP": return IPPROTO::TCP;
+		case "UDP": return IPPROTO::UDP;
+		case "EIGRP": return IPPROTO::EIGRP;
+	}
+	return -1;
+}
 class packet {
 	private $cid;
 	private $sid;
