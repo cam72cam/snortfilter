@@ -168,12 +168,29 @@ class icmp_header {
 	}
 }
 
+function hexToStr($hex)
+{
+	$string='';
+	for ($i=0; $i < strlen($hex)-1; $i+=2)
+	{
+		$string .= chr(hexdec($hex[$i].$hex[$i+1]));
+	}
+	return $string;
+}
+
+
 class data {
 	private $cid;
 	private $sid;
 	
 	public $data_payload;
 	
+	public $data_ascii;
+
+	function __construct() {
+		$this->data_ascii = hexToStr($this->data_payload);
+	}
+
 	public static function get($cid, $sid) {
 		$result = db::query("SELECT * FROM data WHERE cid=%d AND sid=%d", $cid, $sid);
 		return $result->fetch_object('data');

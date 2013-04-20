@@ -17,7 +17,7 @@ function pkt_td($data) {
 $ip = $packet->get_ip();
 ?>
 
-<table style="width:100%; text-align:left">
+<table style="width:100%; text-align:left; ">
 	<tr>
 		<th colspan="100" style="text-align:center">IP Header</th>
 	</tr>
@@ -137,9 +137,19 @@ $ip = $packet->get_ip();
 		<th colspan="100" style="text-align:center">Raw Data</th>
 	</tr>
 	<tr>
-		<td colspan="100" ><?php echo $packet->get_data()->data_payload; ?></td>
+		<td colspan="100" style="max-width:100px">
+			<div id="data">
+				<h6>ASCII</h6><p style="word-wrap:break-word;"><?php echo str_replace("\n", "<br>", $packet->get_data()->data_ascii); ?></p>
+				<h6>RAW</h6><p style="word-wrap:break-word;"><?php echo $packet->get_data()->data_payload; ?></p>
+			</div>
+		</td>
 	</tr>
+
 </table>
+
+<script type="text/javascript">
+	$("#data").accordion();
+</script>
 
 <?php
 

@@ -1,7 +1,7 @@
 <?php
 	include_once "../lib/db.php";
 	
-	$aColumns = array( 'event.sid', 'event.cid', 'sig_name', 'timestamp', 'ip_src', 'ip_proto');
+	$aColumns = array( 'event.sid', 'event.cid', 'signature.sig_name', 'event.timestamp', 'iphdr.ip_src', 'iphdr.ip_proto');
 	
 	db::connect();
 	
@@ -13,7 +13,7 @@
 		$Order = $aColumns[ intval( $_GET['iSortCol_'.$i] ) ];
 		$Dir   = ($_GET['sSortDir_'.$i]==='asc' ? 'asc' : 'desc');
 		$Order = $Order.' '.$Dir;
-		$query->add_order($Order);
+		$query->orderby = $Order;
 	}
 	
 	
@@ -33,10 +33,10 @@
 		$query->end = date('Y-m-d', $date);
 	}
 
-	if( !isset($_GET['startDate']) && !isset($_GET['endDate'])) {
+/*	if( !isset($_GET['startDate']) && !isset($_GET['endDate'])) {
 		$date = strtotime("-1 day");
 		$query->start = date('Y-m-d', $date);
-	}
+	}*/
 
 	if( isset($_GET['ipProto'])) {
 		$proto = str2proto($_GET['ipProto']);
@@ -46,6 +46,9 @@
 	}
 	if( isset($_GET['sourceIp'])) {
 		$query->ip_src = $_GET['sourceIp'];
+	}
+	if( isset($_GET['sigId'])) {
+		$query->sig_id = $_GET['sigId'];
 	}
 	
 	if( isset($_GET['sigName']) && isset($_GET['sigLike'])) {
@@ -85,9 +88,9 @@
 		for ( $i=0 ; $i<count($aColumns) ; $i++ )
 		{
 			$data = $aRow[$i];
-			if ( $aColumns[$i] == "ip_src" ) 
+			if ( $aColumns[$i] == "iphdr.ip_src" ) 
 				$row[] = long2ip($data);
-			else if ( $aColumns[$i] == "ip_proto" )
+			else if ( $aColumns[$i] == "iphdr.ip_proto" )
 				$row[] = proto2str($data);
 			else
 				$row[] = $data;

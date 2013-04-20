@@ -2,6 +2,7 @@
 
 function event_table($params) {
 	static $table_id = 0;
+	$table_name = "event_table_".$table_id;
 	
 	$pre = "?";
 	$args = "";
@@ -9,10 +10,9 @@ function event_table($params) {
 		$args.=$pre.$key."=".$val;
 		$pre = "&";
 	}
-	echo $args;
 	
 	?>
-	<table id="test_table_<?php echo $table_id?>" style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+	<table id="<?php echo $table_name?>" style="width:100%;" cellpadding="0" cellspacing="0" border="0">
 		<thead>
 		<tr>
 			<th>SID</th>
@@ -39,18 +39,26 @@ function event_table($params) {
 					});
 				}
 			}
-			var id = "#test_table_<?php echo $table_id?>";
+			var id = "#<?php echo $table_name?>";
 			table = $(id).dataTable({ 
 				bJQueryUI : true, 
 				bProcessing: true,
 				bServerSide: true,
+				iDisplayLength: 25,
 				sAjaxSource: 'data_sources/event.php<?php echo $args; ?>',
-				aoColumns: [ { "bVisible": false }, { "bVisible": false }, null, null,null,null ],
+				aoColumns: [ { "bVisible": false, bSortable: false}, { "bVisible": false }, null, null,null,null ],
 				fnDrawCallback: row_refresh,
 			});
 		});
+		function update_table_source(tname,  args) {
+			table.dataTableSettings[0].sAjaxSource = "data_sources/event.php" + args;
+			table._fnAjaxUpdate();
+		}
 	</script>
 	<?php	
 	$table_id++;
+	return $table_name;
 }
+
+
 ?>
