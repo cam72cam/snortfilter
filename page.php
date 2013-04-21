@@ -5,6 +5,7 @@ class PAGE {
 	const SEARCH = "Search";
 	const PACKET_INSPECTOR = "Packet Inspector";
 	const SIGNATURES = "Signature Search";
+	const HOSTS = "Hosts";
 }
 
 function page_header($page, $header) {
@@ -28,6 +29,7 @@ function page_header($page, $header) {
 				<td><a href="index.php">Home</a></td>
 				<td><a href="search.php">Search</a></td>
 				<td><a href="signatures.php">Signatures</a></td>
+				<td><a href="hosts.php">Hosts</a></td>
 			</tr>
 		</table>
 	

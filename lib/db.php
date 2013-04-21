@@ -1,9 +1,11 @@
 <?php
 
-include_once "packet.php";
-include_once "signature.php";
-include_once "event.php";
-include_once "query.php";
+set_include_path(get_include_path() . PATH_SEPARATOR . '../.');
+include_once "lib/packet.php";
+include_once "lib/signature.php";
+include_once "lib/event.php";
+include_once "lib/query.php";
+include_once "lib/hosts.php";
 
 db::$instance = new db();
 
