@@ -7,6 +7,7 @@ class PAGE {
 	const SIGNATURES = "Signature Search";
 	const HOSTS = "Hosts";
 	const GLOBE = "Attacker Locations";
+	const ATTACKER = "Attacker";
 }
 
 function page_header($page, $header) {
@@ -31,6 +32,7 @@ function page_header($page, $header) {
 			<a href="signatures.php">Signatures</a>
 			<a href="hosts.php">Hosts</a></td>
 			<a href="globe.php">Attack Locations</a>
+			<a href="attacker.php">Attackers</a>
 		</div>
 	
 	<?php

@@ -35,6 +35,8 @@ function event_table($params) {
 				var data = table.fnGetData();
 				for(var i in data) {
 					nodes[i].data = data[i];
+					var attacker = $(nodes[i].children[2]);
+					attacker.html("<a style='color:#000' href='/attacker?ip=" + attacker.html() + "'>" + attacker.html() + "</a>");
 					$(nodes[i]).dblclick(function () 
 					{
 						show_dialog('inspector.php?sid=' + this.data[0] + '&cid=' + this.data[1]);
