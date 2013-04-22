@@ -6,6 +6,7 @@ class PAGE {
 	const PACKET_INSPECTOR = "Packet Inspector";
 	const SIGNATURES = "Signature Search";
 	const HOSTS = "Hosts";
+	const GLOBE = "Attacker Locations";
 }
 
 function page_header($page, $header) {
@@ -24,14 +25,13 @@ function page_header($page, $header) {
 	</head>
 	<body>
 		<?php if($header) { ?>
-		<table>
-			<tr>
-				<td><a href="index.php">Home</a></td>
-				<td><a href="search.php">Search</a></td>
-				<td><a href="signatures.php">Signatures</a></td>
-				<td><a href="hosts.php">Hosts</a></td>
-			</tr>
-		</table>
+		<div class="top_bar">
+			<a href="index.php">Home</a>
+			<a href="search.php">Search</a>
+			<a href="signatures.php">Signatures</a>
+			<a href="hosts.php">Hosts</a></td>
+			<a href="globe.php">Attack Locations</a>
+		</div>
 	
 	<?php
 	}
