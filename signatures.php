@@ -13,7 +13,7 @@ $res = db::query($query);
 ?>
 
 
-<select id="signatures" style="margin-left:5%">
+<select id="signatures" style="float:right">
 	<option value="*">All</option>
 	<?php
 	for($sig = mysqli_fetch_assoc($res); $sig != NULL; $sig = mysqli_fetch_assoc($res)) {
@@ -33,6 +33,7 @@ $table = event_table($args);
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#<?php echo $table ?>_filter").hide();
 		var signatures = $("#signatures");
 		$($(".fg-toolbar")[0]).append(signatures);
 		signatures.change(function() {
