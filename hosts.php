@@ -10,33 +10,35 @@ page_header(PAGE::HOSTS, true);
 db::connect();
 
 ?>
-List of hosts:
+<div style="margin-left:20px">
+	<p>List of hosts:</p>
 
-<table id="host_table">
-	<thead>
-		<tr>
-			<th>Address</th>
-			<th>Type</th>
-			<th>OS</th>
-			<th>Attacked By</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php
-		$hosts = host::get();
-		foreach($hosts as &$host) {
-		?>
-		<tr>
-			<td><?php echo $host->ipaddress; ?></td>
-			<td><?php echo $host->honeypot; ?></td>
-			<td><?php echo $host->os; ?></td>
-			<td><?php echo $host->num_attacks(); ?></td>
-		</tr>
-		<?php
-		}
-		?>
-	</tbody>
-</table>
+	<table id="host_table">
+		<thead>
+			<tr>
+				<th>Address</th>
+				<th>Type</th>
+				<th>OS</th>
+				<th>Attacked By</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			$hosts = host::get();
+			foreach($hosts as &$host) {
+			?>
+			<tr>
+				<td><?php echo $host->ipaddress; ?></td>
+				<td><?php echo $host->honeypot; ?></td>
+				<td><?php echo $host->os; ?></td>
+				<td><?php echo $host->num_attacks(); ?></td>
+			</tr>
+			<?php
+			}
+			?>
+		</tbody>
+	</table>
+</div>
 <script type="text/javascript">
 	var table;
 	$(document).ready(function() {

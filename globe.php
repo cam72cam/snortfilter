@@ -1,7 +1,7 @@
 <?php
 
 include_once "page.php";
-page_header(PAGE::HOME, true);
+page_header(PAGE::GLOBE, true);
 
 
 ?>

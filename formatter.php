@@ -12,7 +12,8 @@ function event_table($params) {
 	}
 	
 	?>
-	<table id="<?php echo $table_name?>" style="width:100%;" cellpadding="0" cellspacing="0" border="0">
+<div style="margin-left:20px">
+	<table id="<?php echo $table_name?>" cellpadding="0" cellspacing="0" border="0">
 		<thead>
 		<tr>
 			<th>SID</th>
@@ -24,6 +25,7 @@ function event_table($params) {
 		</tr>
 		</thead>
 	</table>
+</div>
 	<script type="text/javascript">
 		var table;
 		$(document).ready(function() {
@@ -49,6 +51,7 @@ function event_table($params) {
 				aoColumns: [ { "bVisible": false, bSortable: false}, { "bVisible": false }, null, null,null,null ],
 				fnDrawCallback: row_refresh,
 			});
+			table.css("width", "100%");
 		});
 		function update_table_source(tname,  args) {
 			table.dataTableSettings[0].sAjaxSource = "data_sources/event.php" + args;

@@ -21,10 +21,10 @@ $eigrpSelected = $_POST['ipProto'] == "EIGRP" ? "selected" : "";
 
 
 ?>
-
+<div style="margin:10px; margin-left:20px; padding: 10px; background-color:#555; width:50%; border-radius: 8px">
 	Welcome to the search page. 
 
-	<form method="post">
+	<form method="post" style="margin:0px">
 		<table>
 			<tr>
 				<td>Signature:</td>
@@ -67,7 +67,7 @@ $eigrpSelected = $_POST['ipProto'] == "EIGRP" ? "selected" : "";
 			</tr>
 		</table>
 	</form> 
-
+</div>
 	<script type="text/javascript">
 		$(function() {
 			var date_ = new Date();

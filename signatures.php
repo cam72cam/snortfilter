@@ -22,11 +22,13 @@ $res = db::query($query);
 
 	?>
 </select>
+<div style="margin-top:10px">
 <?php
 
 $args = array();
 $table = event_table($args);
 ?>
+</div>
 
 
 <script type="text/javascript">
