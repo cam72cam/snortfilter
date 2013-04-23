@@ -9,9 +9,10 @@ page_header(PAGE::STATS, true);
 db::connect();
 
 ?>
-
-<div id="container"></div>
-<div id="pie"></div>
+<div style="margin-left:20px; margin-top:10px; width:98%">
+	<div id="container"></div>
+	<div id="pie"></div>
+</div>
 <script type="text/javascript">
 
 Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
