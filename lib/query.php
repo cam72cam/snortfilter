@@ -13,6 +13,7 @@ class ORDERBY {
 
 class query {
 	public $ip_src;
+	public $ip_dst;
 	public $signature;
 	public $sig_id;
 	public $start;
@@ -61,15 +62,18 @@ class query {
 		if(isset($this->ip_src)) {
 			$query .= sprintf(" AND ip_src='%d'", ip2long($this->ip_src));
 		}
+		if(isset($this->ip_dst)) {
+			$query .= sprintf(" AND ip_dst='%d'", ip2long($this->ip_dst));
+		}
 		if(isset($this->proto)) {
 			$query .= sprintf(" AND ip_proto='%d'", $this->proto);
 		}
 		$foo = NULL;
 		if(isset($this->start)) {
-			$foo =  sprintf(" AND timestamp>='%s'", $this->start);
+			$foo =  sprintf(" AND timestamp>='%s'", db::excape($this->start));
 		}
 		if(isset($this->end)) {
-			$foo .= sprintf(" AND timestamp<='%s'", $this->end);
+			$foo .= sprintf(" AND timestamp<='%s'", db::excape($this->end));
 		}
 		if($foo != NULL) {
 			$query = str_replace(" event ", sprintf(" (SELECT * FROM event WHERE true %s) event ", $foo), $query);
@@ -80,21 +84,21 @@ class query {
 		if(isset($this->signature)) {
 			switch($this->sig_opt) {
 			case "contains":
-				$query .= " AND `sig_name` LIKE '%". $this->signature ."%'";
+				$query .= " AND `sig_name` LIKE '%". db::escape($this->signature) ."%'";
 				break;
 			case "begins":
-				$query .= " AND `sig_name` LIKE '". $this->signature ."%'";
+				$query .= " AND `sig_name` LIKE '". db::escape($this->signature) ."%'";
 				break;
 			case "ends":
-				$query .= " AND `sig_name` LIKE '%". $this->signature ."'";
+				$query .= " AND `sig_name` LIKE '%". db::escape($this->signature) ."'";
 				break;
 			default:
-				$query .= " AND `sig_name` LIKE '". $this->signature ."'";
+				$query .= " AND `sig_name` LIKE '". db::escape($this->signature) ."'";
 			}
 		}
 		
 		if(isset($this->orderby) && $order) {
-			$query .= sprintf(" ORDER BY %s", $this->orderby);
+			$query .= sprintf(" ORDER BY %s", db::escape($this->orderby));
 		}
 
 		if(isset($this->start_limit) && isset($this->num_limit)) {

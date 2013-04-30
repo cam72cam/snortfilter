@@ -22,6 +22,10 @@ class db {
 		self::$instance->conn = new mysqli(self::$host, self::$user, self::$password, self::$name);
 	}
 
+	public static function escape($str) {
+		return self::$instance->conn->real_escape_string($str);
+	}
+
 	public static function query($query) {
 		$args = func_get_args();
 		if(count($args)>1) {

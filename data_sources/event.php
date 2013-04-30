@@ -47,6 +47,9 @@
 	if( isset($_GET['sourceIp'])) {
 		$query->ip_src = $_GET['sourceIp'];
 	}
+	if( isset($_GET['destIp'])) {
+		$query->ip_dst = $_GET['destIp'];
+	}
 	if( isset($_GET['sigId'])) {
 		$query->sig_id = $_GET['sigId'];
 	}
