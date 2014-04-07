@@ -10,7 +10,7 @@ function QueryWhoisServer($whoisserver, $domain) {
 	}
 	fclose($fp);
 	$res = "";
-	if((strpos(strtolower($out), "error") === FALSE) && (strpos(strtolower($out), "not allocated") === FALSE)) {
+	if((strpos(strtolower($out), "error") === FALSE) && (strpos(strtolower($out), "not allocated") === FALSE)) {
 		$rows = explode("\n", $out);
 		foreach($rows as $row) {
 			$row = trim($row);
@@ -23,7 +23,7 @@ function QueryWhoisServer($whoisserver, $domain) {
 }
 
 function LookupIP($ip) {
-	$whoisservers = array(
+/*	$whoisservers = array(
 		"whois.arin.net", // North America only
 	);
 	$results = array();
@@ -36,7 +36,9 @@ function LookupIP($ip) {
 	$res = "RESULTS FOUND: " . count($results);
 	foreach($results as $whoisserver=>$result) {
 		$res .= "\n\n-------------\nLookup results for " . $ip . " from " . $whoisserver . " server:\n\n" . $result;
-	}
+	}*/
+	$res = array();
+	exec(sprintf("/usr/bin/whois %s", $ip), $res);
 	return $res;
 }
 
@@ -49,12 +51,24 @@ function LongLat($city, $state, $country) {
 
 function LookUp($ip) {
 	$lookup =  LookupIP($ip);
-	$lookup = explode("\n", $lookup);
 	$address = NULL;
 	$city = NULL;
 	$state = NULL;
 	$country = NULL;
 	foreach($lookup as &$entry) {
+		if(strstr($entry, 'address:')) {
+			$address = trim(str_replace('address:', '', $entry));
+		}
+		if(strstr($entry, 'city:')) {
+			$city = trim(str_replace('city:', '', $entry));
+		}
+		if(strstr($entry, 'stateProv:')) {
+			$state = trim(str_replace('stateProv:', '', $entry));
+		}
+		if(strstr($entry, 'country:')) {
+			$country = trim(str_replace('country:', '', $entry));
+		}
+
 		if(strstr($entry, 'Address:')) {
 			$address = trim(str_replace('Address:', '', $entry));
 		}
@@ -67,11 +81,14 @@ function LookUp($ip) {
 		if(strstr($entry, 'Country:')) {
 			$country = trim(str_replace('Country:', '', $entry));
 		}
-		
 	}
+	$address="";
 
 	$spot  = LongLat($address . "+" .$city, $state, $country);
 	return $spot;
-#echo "Lattitude: ".$spot->lat. "\n";
-#echo "Longitude: ".$spot->lng. "\n";
 }
+
+/*$spot =  LookUp("201.201.150.134");
+#$spot =  LookUp("128.153.145.1");
+echo "Lattitude: ".$spot->lat. "\n";
+echo "Longitude: ".$spot->lng. "\n";*/

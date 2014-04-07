@@ -70,10 +70,10 @@ class query {
 		}
 		$foo = NULL;
 		if(isset($this->start)) {
-			$foo =  sprintf(" AND timestamp>='%s'", db::excape($this->start));
+			$foo =  sprintf(" AND timestamp>='%s'", db::escape($this->start));
 		}
 		if(isset($this->end)) {
-			$foo .= sprintf(" AND timestamp<='%s'", db::excape($this->end));
+			$foo .= sprintf(" AND timestamp<='%s'", db::escape($this->end));
 		}
 		if($foo != NULL) {
 			$query = str_replace(" event ", sprintf(" (SELECT * FROM event WHERE true %s) event ", $foo), $query);

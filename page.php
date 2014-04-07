@@ -3,6 +3,7 @@
 class PAGE {
 	const HOME = "Home";
 	const SEARCH = "Search";
+	const STATS = "Statistics";
 	const PACKET_INSPECTOR = "Packet Inspector";
 	const SIGNATURES = "Signature Search";
 	const HOSTS = "Hosts";
@@ -22,6 +23,7 @@ function page_header($page, $header) {
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 		<script type="text/javascript" src="jquery/jquery.dataTables.js"></script>
+		<script type="text/javascript" src="highcharts/js/highcharts.js"></script>
 		<script type="text/javascript" src="site.js"></script>
 	</head>
 	<body>
@@ -29,6 +31,7 @@ function page_header($page, $header) {
 		<div class="top_bar">
 			<a href="index.php">Home</a>
 			<a href="search.php">Search</a>
+			<a href="stats.php">Statistics</a>
 			<a href="signatures.php">Signatures</a>
 			<a href="hosts.php">Hosts</a></td>
 			<a href="globe.php">Attack Locations</a>

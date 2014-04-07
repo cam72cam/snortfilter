@@ -9,9 +9,11 @@ page_header(PAGE::HOSTS, true);
 
 db::connect();
 
+if(!isset($_GET["ip"])) {
+
 ?>
 <div style="margin-left:20px">
-	<p>List of hosts:</p>
+	<p style="font-size:20px">List of hosts:</p>
 
 	<table id="host_table">
 		<thead>
@@ -42,28 +44,50 @@ db::connect();
 <script type="text/javascript">
 	var table;
 	$(document).ready(function() {
-
-		function row_refresh() {
-			var nodes = table.fnGetNodes();
-			var data = table.fnGetData();
-			for(var i in data) {
-				nodes[i].data = data[i];
-				$(nodes[i]).dblclick(function () 
-				{
-					show_dialog('inspector.php?sid=' + this.data[0] + '&cid=' + this.data[1]);
-				});
-			}
-		}
 		var id = "#host_table";
 		table = $(id).dataTable({ 
 			bJQueryUI : true, 
 			iDisplayLength: 25,
 			fnDrawCallback: row_refresh,
 		});
+		function row_refresh() {
+			if(table !== undefined) {
+				var nodes = table.fnGetNodes();
+				var data = table.fnGetData();
+				for(var i in data) {
+					nodes[i].data = data[i];
+					$(nodes[i]).dblclick(function () 
+					{
+						document.location.href = "hosts.php?ip=" + this.data[0];
+					});
+				}
+			}
+		}
+		row_refresh();
+
 	});
 </script>
 
 
 <?php
+} else {
+	$ip = $_GET["ip"];
+	?>
+
+	<div style="margin-left:16px">
+		<p style="font-size:20px"><?php echo $ip; ?></p>
+	</div>
+
+	<?php
+	$args = array();
+	$args["destIp"] = $ip;
+	$table = event_table($args);
+
+
+}
+
+
+
+
 page_footer();
 ?>
